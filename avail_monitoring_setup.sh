@@ -6,15 +6,10 @@ echo -e "
 - All collected metrics will be output Prometheus and Grafana
 "
 
-
 cd $HOME
 git clone https://github.com/viennguyenbkdn/Avail_Monitoring
 cd $HOME/Avail_Monitoring;
 sleep 1;
-
-HOST_IP=$(curl -s ipinfo.io/ip);
-sed -i.bak -e "s/^HOST_IP=.*/HOST_IP=$HOST_IP/g" $HOME/Avail_Monitoring/.env
-sed -i.bak -e "s/HOST_IP/$HOST_IP/g" $HOME/Avail_Monitoring/prometheus/prometheus.yml
 
 docker compose up -d;
 sleep 15;
