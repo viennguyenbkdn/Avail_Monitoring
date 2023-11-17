@@ -15,15 +15,15 @@ sleep 1;
 HOST_IP=$(curl -s ipinfo.io/ip);
 sed -i.bak -e "s/^HOST_IP=.*/HOST_IP=$HOST_IP/g" $HOME/Avail_Monitoring/.env
 sed -i.bak -e "s/HOST_IP/$HOST_IP/g" $HOME/Avail_Monitoring/prometheus/prometheus.yml
-chmod -R 777 $HOME/Avail_Monitoring 
+
 docker compose up -d;
 sleep 1;
-# docker compose down;
-# sleep 1;
+docker compose down;
+sleep 1;
 
-
-# docker compose up -d;
-# sleep 3;
+chmod -R 777 $HOME/Avail_Monitoring/*
+docker compose up -d;
+sleep 3;
 
 PORT_GRAFANA=$(sed -n 's/^PORT_GRAFANA=\(.*\)/\1/p' $HOME/Avail_Monitoring/.env) 
 
