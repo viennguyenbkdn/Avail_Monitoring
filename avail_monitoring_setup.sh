@@ -29,7 +29,7 @@ sleep 1;
 HOST_IP=$(curl -s -4 ipconfig.io/ip);
 sleep 1;
 sed -i.bak -e "s/^HOST_IP=.*/HOST_IP=$HOST_IP/g" $HOME/Avail_Monitoring/.env
-sed -i.bak -e "s/HOST_IP=.*/$HOST_IP/g" $HOME/Avail_Monitoring/prometheus/prometheus.yml
+sed -i.bak -e "s/HOST_IP/$HOST_IP/g" $HOME/Avail_Monitoring/prometheus/prometheus.yml
 sleep 1;
 
 docker compose up -d;
