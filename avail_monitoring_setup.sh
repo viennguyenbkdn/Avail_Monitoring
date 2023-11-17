@@ -6,12 +6,31 @@ echo -e "
 - All collected metrics will be output Prometheus and Grafana
 "
 
+systemctl list-units --type=service --state=running | grep -i avail > /dev/null
+if [ $? -eq 0 ] ; then
+        Avail_systemd=$(systemctl list-units --type=service --state=running | grep -i avail | awk '{print $1}');
+        sed -i.bak -e  's/^\(ExecStart.* \)\\/\1 \-\-prometheus\-external \\/g' /etc/systemd/system/${Avail_systemd}
+        systemctl daemon-reload
+        systemctl restart $Avail_systemd
+else
+        docker ps | grep -i avail > /dev/null
+        if [ $? -eq 0 ]; then
+                Avail_container=$(docker ps | grep -i avail | awk '{print $NF}');
+        fi
+fi
+
+
+
 cd $HOME
 git clone https://github.com/viennguyenbkdn/Avail_Monitoring
 cd $HOME/Avail_Monitoring;
 sleep 1;
 
-HOST_IP=$(curl -s ipconfig.io/ip);
+HOST_IP=$(curl -s -4 ipconfig.io/ip);
+sleep 1;
+sed -i.bak -e "s/^HOST_IP=.*/HOST_IP=$HOST_IP/g" $HOME/Avail_Monitoring/.env
+sed -i.bak -e "s/^HOST_IP=.*/$HOST_IP/g" $HOME/Avail_Monitoring/prometheus/prometheus.yml
+sleep 1;
 
 docker compose up -d;
 sleep 15;
