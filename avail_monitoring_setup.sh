@@ -9,7 +9,7 @@ echo -e "
 systemctl list-units --type=service --state=running | grep -i avail > /dev/null
 if [ $? -eq 0 ] ; then
         Avail_systemd=$(systemctl list-units --type=service --state=running | grep -i avail | awk '{print $1}');
-        sed -i.bak -e  's/^\(ExecStart.* \)\\/\1 \-\-prometheus\-external \\/g' /etc/systemd/system/${Avail_systemd}
+        sed -i.bak -e  's/^\(ExecStart.*\)\\/\1 \-\-prometheus\-external \\/g' /etc/systemd/system/${Avail_systemd}
         systemctl daemon-reload
         systemctl restart $Avail_systemd
 else
