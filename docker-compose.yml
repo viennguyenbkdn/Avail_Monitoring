@@ -12,8 +12,6 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./data/prometheus:/prometheus
-    extra_hosts:
-      - "host.docker.internal:host-gateway"      
     restart: unless-stopped
 
   grafana:
@@ -26,8 +24,6 @@ services:
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ./grafana/dashboards:/etc/dashboards
       - ./data/grafana:/var/lib/grafana
-    extra_hosts:
-      - "host.docker.internal:host-gateway"      
     restart: unless-stopped
 
   node-exporter:
@@ -36,7 +32,5 @@ services:
       - ${PORT_NODE_EXPORTER:-9100}:9100
     volumes:
       - ./data/node_exporter:/node_exporter
-    extra_hosts:
-      - "host.docker.internal:host-gateway"      
     restart: unless-stopped
 
