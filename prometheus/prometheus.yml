@@ -5,7 +5,7 @@ global:
 scrape_configs:
   - job_name: "Avail"
     static_configs:
-      - targets: [ "localhost:11617" ]  
+      - targets: [ "HOST_IP:11617" ]  
   - job_name: "Node"
     static_configs:
-      - targets: [ "localhost:9100" ]
+      - targets: [ "node-exporter:9100" ]
