@@ -8,7 +8,7 @@ echo -e "
 
 
 cd $HOME
-git clone https://viennguyenbkdn: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@github.com/viennguyenbkdn/Avail_Monitoring
+git clone https://github.com/viennguyenbkdn/Avail_Monitoring
 
 HOST_IP=$(curl -s ipinfo.io/ip);
 
