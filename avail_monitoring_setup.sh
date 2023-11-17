@@ -6,7 +6,7 @@ echo -e "
 - All collected metrics will be output Prometheus and Grafana
 "
 
-systemctl list-units --type=service --state=running | grep -i avail > /dev/null
+systemctl list-units --type=service --state=running | grep -i avaiil > /dev/null
 if [ $? -eq 0 ] ; then
         Avail_systemd=$(systemctl list-units --type=service --state=running | grep -i avail | awk '{print $1}');
         sed -i.bak -e  's/^\(ExecStart.*\)\\/\1 \-\-prometheus\-external \\/g' /etc/systemd/system/${Avail_systemd}
@@ -15,7 +15,14 @@ if [ $? -eq 0 ] ; then
 else
         docker ps | grep -i avail > /dev/null
         if [ $? -eq 0 ]; then
-                Avail_container=$(docker ps | grep -i avail | awk '{print $NF}');
+                Avail_container=$(docker ps | grep -i thuyuyen | awk '{print $NF}');
+                cd $HOME;
+                docker cp ${Avail_container}:/entrypoint.sh . > /dev/null
+                sleep 1;
+                sed -i.bak -e "s/\(--chain=\${DA_CHAIN}\)/\1 --prometheus-external /g" ./entrypoint.sh
+                sleep 1;
+                docker cp ./entrypoint.sh ${Avail_container}:/entrypoint.sh > /dev/null
+                docker restart $Avail_container > /dev/null
         fi
 fi
 
