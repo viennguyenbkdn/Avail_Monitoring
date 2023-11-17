@@ -11,6 +11,8 @@ git clone https://github.com/viennguyenbkdn/Avail_Monitoring
 cd $HOME/Avail_Monitoring;
 sleep 1;
 
+HOST_IP=$(curl -s ipconfig.io/ip);
+
 docker compose up -d;
 sleep 15;
 
@@ -18,7 +20,7 @@ docker compose down;
 sleep 15;
 
 chmod -R 777 $HOME/Avail_Monitoring/*
-sleep 1;
+sleep 3;
 docker compose up -d;
 sleep 3;
 
