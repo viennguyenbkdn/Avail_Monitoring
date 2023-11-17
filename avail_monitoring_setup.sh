@@ -9,15 +9,15 @@ echo -e "
 
 cd $HOME
 git clone https://github.com/viennguyenbkdn/Avail_Monitoring
+cd $HOME/Avail_Monitoring;
+sleep 1;
 
 HOST_IP=$(curl -s ipinfo.io/ip);
-
 sed -i.bak -e "s/^HOST_IP=.*/HOST_IP=$HOST_IP/g" $HOME/Avail_Monitoring/.env
 sed -i.bak -e "s/HOST_IP/$HOST_IP/g" $HOME/Avail_Monitoring/prometheus/prometheus.yml
-
+mkdir -p ./data
 
 chmod -R 777 $HOME/Avail_Monitoring 
-cd $HOME/Avail_Monitoring 
 sleep 5;
 
 docker-compose -f docker-compose.yml up -d
