@@ -18,6 +18,7 @@ sed -i.bak -e "s/HOST_IP/$HOST_IP/g" $HOME/Avail_Monitoring/prometheus/prometheu
 
 chmod -R 777 $HOME/Avail_Monitoring 
 cd $HOME/Avail_Monitoring 
+sleep 5;
 
 docker-compose -f docker-compose.yml up -d
 
